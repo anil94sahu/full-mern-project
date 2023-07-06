@@ -11,10 +11,10 @@ const RightSide = () => {
   return (
     <div className="RightSide">
       <div className="navIcons">
-        <img src={Home} alt="" srcset="" />
+        <img src={Home} alt=""  />
         <UilSetting />
-        <img src={Noti} alt="" srcset="" />
-        <img src={Comment} alt="" srcset="" />
+        <img src={Noti} alt=""  />
+        <img src={Comment} alt=""  />
       </div>
       <Trends />
       <button className="button r-button" onClick={() => setModalOpened(true)}>

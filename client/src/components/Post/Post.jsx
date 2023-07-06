@@ -7,11 +7,11 @@ import Share from '../../img/share.png';
 const Post = ({data}) => {
   return (
     <div className="Post">
-        <img src={data.img} alt="" srcset="" />
+        <img src={data.img} alt="" />
         <div className="postReact">
-            <img src={data.liked?Like:DontLike} alt="" srcset="" />
-            <img src={Comment} alt="" srcset="" />
-            <img src={Share} alt="" srcset="" />
+            <img src={data.liked?Like:DontLike} alt="" />
+            <img src={Comment} alt="" />
+            <img src={Share} alt="" />
         </div>
         <span style={{color:'var(--gray)' , fontSize:'12px'}}>{data.likes} likes</span>
         <div className="detail">
