@@ -5,12 +5,13 @@ import {UilPlayCircle} from '@iconscout/react-unicons';
 import {UilLocationPoint} from '@iconscout/react-unicons';
 import {UilSchedule} from '@iconscout/react-unicons';
 import ProfileImage from '../../img/profileImg.jpg'
-import { useSelector } from 'react-redux';
-import { uploadImage } from '../../actions/uploadAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadImage } from '../../actions/UploadAction';
 const PostShare = () => {
     const [image,setImage] = useState(null);
     const imageRef = useRef();
     const desc= useRef();
+    const dispatch = useDispatch();
     const {data} = useSelector(state=>state.authReducer.authData);
     const user = data;
     const onImageChange= (event)=>{
@@ -34,7 +35,7 @@ const PostShare = () => {
             newPost.image = filename;
             console.log(newPost);
             try {
-                dispatchEvent(uploadImage(data));
+                dispatch(uploadImage(data));
             } catch (error) {
                 console.log(error);
                 
