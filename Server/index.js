@@ -22,7 +22,7 @@ mongoose
   .then(() => app.listen(process.env.PORT, () => console.log(`Listening at port ${process.env.PORT}`)))
   .catch(error => console.log("Error: " + error));
 
+app.use('/upload',UploadRoute);
 app.use('/auth', AuthRoute);
 app.use('/user', UserRoute);
 app.use('/post', PostRoute);
-app.use('/upload',UploadRoute);
