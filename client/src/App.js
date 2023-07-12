@@ -5,8 +5,7 @@ import Auth from "./pages/home/Auth/Auth";
 import Home from "./pages/home/Home";
 import { useSelector } from "react-redux";
 function App() {
-  const {data} = useSelector(state=> state.authReducer.authData);
-  const user = data;
+  const user = useSelector((state) => state.authReducer.authData);
   return (
     <div className="App">
       <div className="blur" style={{right:'0', top:'-18%'}}></div>
