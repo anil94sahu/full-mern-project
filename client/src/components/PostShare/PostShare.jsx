@@ -6,13 +6,13 @@ import {UilLocationPoint} from '@iconscout/react-unicons';
 import {UilSchedule} from '@iconscout/react-unicons';
 import ProfileImage from '../../img/profileImg.jpg'
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImage } from '../../actions/UploadAction';
+import { uploadImage, uploadPost } from '../../actions/UploadAction';
 const PostShare = () => {
     const [image,setImage] = useState(null);
     const imageRef = useRef();
     const desc= useRef();
     const dispatch = useDispatch();
-    const {data} = useSelector(state=>state.authReducer.authData);
+    const {user} = useSelector(state=>state.authReducer.authData);
     // const user = data;
     const onImageChange= (event)=>{
         if(event.target.files && event.target.files[0]){
@@ -24,12 +24,12 @@ const PostShare = () => {
     const handleSubmit = (e) =>{
         e.preventDefault();
         const newPost = {
-            userId:data._id,
+            userId:user._id,
             desc:desc.current.value
         }
         if(image){
             const data=new FormData();
-            const filename = Date.now() + image.name;
+            const filename = image.name;
             data.append("name",filename);
             data.append("file",image.name);
             newPost.image = filename;
@@ -38,45 +38,48 @@ const PostShare = () => {
                 dispatch(uploadImage(data));
             } catch (error) {
                 console.log(error);
-                
             }
+
         }
+        dispatch(uploadPost(newPost));
 
     }
   return (
     <div className="PostShare">
         <img src={ProfileImage} alt="" />
-        <div>
-            <input type="text" placeholder='What"s happening?' ref = {desc} />
-            <div className="postOptions">
-                <div className="option" onClick={()=>imageRef.current.click()}>
-                    <UilScenery style = {{color:'var(--photo)'}}/>
-                </div>
-                <div className="option">
-                    <UilPlayCircle style = {{color:'var(--video)'}}/>
-                </div>
-                <div className="option">
-                    <UilLocationPoint style = {{color:'var(--location)'}} />
-                </div>
-                <div className="option">
-                    <UilSchedule style = {{color:'var(--shedule)'}} />
-                </div>
-                <div className="option">
-                    <button className="button fc-button" onClick={handleSubmit}>Share</button>
-                    <div style={{display:'none'}}>
-                        <input type="file" name="myImage" ref={imageRef} onChange={onImageChange} />
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div>
+                <input type="text" placeholder='What"s happening?' ref = {desc} />
+                <div className="postOptions">
+                    <div className="option" onClick={()=>imageRef.current.click()}>
+                        <UilScenery style = {{color:'var(--photo)'}}/>
+                    </div>
+                    <div className="option">
+                        <UilPlayCircle style = {{color:'var(--video)'}}/>
+                    </div>
+                    <div className="option">
+                        <UilLocationPoint style = {{color:'var(--location)'}} />
+                    </div>
+                    <div className="option">
+                        <UilSchedule style = {{color:'var(--shedule)'}} />
+                    </div>
+                    <div className="option">
+                        <button className="button fc-button" onClick={handleSubmit}>Share</button>
+                        <div style={{display:'none'}}>
+                            <input type="file" name="file" ref={imageRef} onChange={onImageChange} />
+                        </div>
                     </div>
                 </div>
+                {
+                        image && (
+                            <div className="previewImage">
+                                <UilTimes onClick={()=>setImage(null)} />
+                                <img src={URL.createObjectURL(image)} alt="" />
+                            </div>
+                        )
+                }
             </div>
-            {
-                    image && (
-                        <div className="previewImage">
-                            <UilTimes onClick={()=>setImage(null)} />
-                            <img src={URL.createObjectURL(image)} alt="" />
-                        </div>
-                    )
-            }
-        </div>
+        </form>
     </div>
   )
 }
