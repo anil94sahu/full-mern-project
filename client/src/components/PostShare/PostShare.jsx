@@ -46,7 +46,6 @@ const PostShare = () => {
   return (
     <div className="PostShare">
       <img src={ProfileImage} alt="" />
-      <form action="/upload" method="POST" enctype="multipart/form-data">
         <div>
           <input type="text" placeholder='What"s happening?' ref={desc} />
           <div className="postOptions">
@@ -83,7 +82,6 @@ const PostShare = () => {
             </div>
           )}
         </div>
-      </form>
     </div>
   );
 };

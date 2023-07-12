@@ -5,6 +5,7 @@ import DontLike from '../../img/notlike.png';
 import Comment from '../../img/comment.png';
 import Share from '../../img/share.png';
 const Post = ({data}) => {
+  console.log(data);
   return (
     <div className="Post">
         <img src={data.img} alt="" />
