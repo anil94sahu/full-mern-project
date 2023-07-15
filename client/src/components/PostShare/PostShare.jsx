@@ -13,6 +13,8 @@ const PostShare = () => {
   const desc = useRef();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
+  // console.log(process);
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const loading  = useSelector((state) => state.postReducer.uploading);
   // const user = data;
   const onImageChange = (event) => {
@@ -45,7 +47,7 @@ const PostShare = () => {
   };
   return (
     <div className="PostShare">
-      <img src={ProfileImage} alt="" />
+      <img src={user.profilePicture?serverPublic+ user.profilePicture : serverPublic+"defaultCover.png"} alt="" />
         <div>
           <input type="text" placeholder='What"s happening?' ref={desc} />
           <div className="postOptions">
