@@ -32,7 +32,7 @@ const PostShare = () => {
     };
     if (image) {
       const data = new FormData();
-      const filename = image.name;
+      const filename = Date.now() + image.name;
       data.append("name", filename);
       data.append("file", image.name);
       newPost.image = filename;

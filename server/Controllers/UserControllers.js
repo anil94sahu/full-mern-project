@@ -1,4 +1,5 @@
 import userModel from "../Models/userModel.js";
+import jwt from 'jsonwebtoken';
 
 export const getUser=async(req, res)=>{
     const id=req.params.id;
@@ -17,15 +18,16 @@ export const getUser=async(req, res)=>{
 
 export const updateUser=async (req, res)=>{
     const id=req.params.id;
-    const {currentUserId,currentUserAdminStatus,password}=req.body;
+    const {_id,currentUserAdminStatus,password}=req.body;
     try{
-        if(currentUserId===id || currentUserAdminStatus){
+        if(_id===id){
             if(password){
                 const salt = await bcrypt.genSalt(10);
                 req.body.password = await bcrypt.hash(password,salt)
             }
             const user = await userModel.findByIdAndUpdate(id,req.body,{new:true});
             if(user){
+                const token = jwt.sign({username : user.username, id:user._id}, process.env.JWT_KEY, {expiresIn: '1h'})
                 res.status(200).json(user);
             }
         } else{
