@@ -10,3 +10,8 @@ export const updateUser = (id,formData) =>async(dispatch) =>{
 
     }
 }
+
+export const followUser = (id, formData) =>async(dispatch) =>{
+    const follow = await UserRequest.followUser(id,formData);
+    dispatch({type:'FOLLOW_USER'})
+}

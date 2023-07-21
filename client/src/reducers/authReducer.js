@@ -16,6 +16,13 @@ const authReducer=(state={authData:null,loading:false,error:false},action)=>{
         case "LOG_OUT":
             localStorage.clear();
             return {...state, loading:false,error:false}
+        case 'FOLLOW_USER':
+            return {...state,updateLoading:true,error:false}
+        case 'FOLLOW_USER_SUCCESS':
+                localStorage.setItem('profile', JSON.stringify(...action?.data));
+            return {...state,authData:action.data,updateLoading:false,error:false}
+        case 'FOLLOW_USER_FAIL':
+            return {...state,updateLoading:false,error:true}
         
         default :
             return state;
